@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="salesfavicon.png">
+</head>
+<body>
+    <div class="container">
+        <h1>Upload File</h1>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" id="fileInput" name="file" required>
+            <button type="submit">Upload</button>
+        </form>
+        <div id="message"></div>
+    </div>
+
+    <script>
+       document.getElementById('uploadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            
+            // Maximum file size in bytes (50 MB)
+            const maxFileSize = 50 * 1024 * 1024;
+
+            if (!file) {
+                alert('Please select a file.');
+                return;
+            }
+
+            if (file.size > maxFileSize) {
+                showMessage('File size exceeds the 50 MB limit.', 'error');
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            try {
+                const response = await fetch('http://127.0.0.1:5000/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+                console.log(result);
+
+                if (!response.ok) {
+                    throw new Error(result.error || 'Upload failed');
+                }
+                showMessage(result.message || 'File uploaded successfully!', 'success');
+
+                // Refresh the page after successful upload
+                setTimeout(() => {
+                    window.location.reload();
+                }, 3000); // Delay to allow the message to be visible
+
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage('Error uploading file.', 'error');
+            }
+        });
+
+        function showMessage(message, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = message;
+            messageDiv.className = type === 'success' ? 'success' : 'error';
+        }
+    </script>
+</body>
+</html>
