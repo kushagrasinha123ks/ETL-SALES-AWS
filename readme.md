@@ -3,9 +3,9 @@
 ## Overview
 
 Automated Sales Data Pipeline with AWS
-• Developed a web portal using Python Flask that supports file uploads (CSV/Excel) up to 50 MB to AWS S3, utilizing the Boto3 AWS SDK for seamless integration.
-• Designed and implemented an ETL pipeline with AWS Glue to transform and filter data using SQL queries, focusing on extracting information relevant to the Asian market.
-• Efficiently managed data storage and retrieval by storing transformed data back in S3, facilitating easier analysis and reporting.
+- Developed a web portal using Python Flask that supports file uploads (CSV/Excel) up to 50 MB to AWS S3, utilizing the Boto3 AWS SDK for seamless integration.
+- Designed and implemented an ETL pipeline with AWS Glue to transform and filter data using SQL queries, focusing on extracting information relevant to the Asian market.
+- Efficiently managed data storage and retrieval by storing transformed data back in S3, facilitating easier analysis and reporting.
 
 
 ## Project Structure
